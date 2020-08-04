@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Cuentas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Persona>
+		<id>12345</id>
+		<tipoid>CC</tipoid>
+		<nombre>Pedro Perez</nombre>
+                <email>pedro@gmail.com</email>
+	</Persona>
+        <Persona>
+		<id>1234</id>
+		<tipoid>TI</tipoid>
+		<nombre>Juan Díaz</nombre>
+                <email>juandiaz@hotmail.com</email>
+	</Persona>
+	<Persona>
+		<id>7890</id>
+		<tipoid>CE</tipoid>
+		<nombre>Erik Jones</nombre>
+                <email>erikjones@outlook.com</email>
+	</Persona>
+        <Persona>
+		<id>5432</id>
+		<tipoid>CC</tipoid>
+		<nombre>Marcela González</nombre>
+                <email>mgonzalez@usco.edu.co</email>
+	</Persona>
+        <Persona>
+		<id>6754</id>
+		<tipoid>CC</tipoid>
+		<nombre>María Ruiz</nombre>
+                <email>maria.ruiz@gmail.com</email>
+	</Persona>
+</Cuentas>
