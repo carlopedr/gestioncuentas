@@ -1,8 +1,11 @@
 # gestioncuentas
+
 Proyecto básico de Gestión de Cuentas - Curso POO TDS USCO 2020A
+
 Como proyecto de finalización del cuso de Programación Orienta a Objetos basada en Java
 del Programa de Tecnología en Desarrollo de Software de la Facultad de Ingeniera se realiza 
 el siguiente proyecto:
+
 Definir una clase abstracta Cuenta con los siguientes atributos:
 •	numerocuenta : entero largo
 •	saldo : double
