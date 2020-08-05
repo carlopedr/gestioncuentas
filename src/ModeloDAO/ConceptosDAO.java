@@ -5,10 +5,29 @@
  */
 package ModeloDAO;
 
+import Modelo.Concepto;
+import java.util.List;
+
 /**
  *
  * @author Usuario
  */
 public class ConceptosDAO {
-    
+    public void crearConcepto(Concepto concepto){
+        
+    }
+    public void borrarConcepto(int id){
+        
+    }
+    public void actualizarConcepto(int id){
+        
+    }
+    public List listarConcepto(){
+        return null;
+        
+    }
+    public Concepto buscarConcepto(int id){
+        return null;
+        
+    }
 }

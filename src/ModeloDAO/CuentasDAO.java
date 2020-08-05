@@ -5,10 +5,29 @@
  */
 package ModeloDAO;
 
+
+import java.util.List;
+
 /**
  *
  * @author Usuario
  */
 public class CuentasDAO {
-    
+    public void crearCenta(Object cuenta){
+        
+    }
+    public void borrarCuenta(int id){
+        
+    }
+    public void actualizarCuenta(int id){
+        
+    }
+    public List listarCuenta(){
+        return null;
+        
+    }
+    public Object buscarCuenta(int id){
+        return null;
+        
+    }
 }

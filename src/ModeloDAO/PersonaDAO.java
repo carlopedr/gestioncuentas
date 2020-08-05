@@ -75,12 +75,6 @@ public class PersonaDAO {
         //return list;
     
 }
-public void removePersona(int id){
-    File file = new File("datos/Personas.xml");
-    
-    
-    
-}
 public void eliminarPersona(int id){
         //Eliminar un registro del el archivo XML
         //que coincida con el id

@@ -3,7 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Vistas;
+package Controlador;
+
+import Vistas.AcercadeDialog;
+import Vistas.PersonasListadoFrm;
 
 /**
  *
@@ -42,8 +45,8 @@ public class InicioFrame extends javax.swing.JFrame {
         SalirMnIt = new javax.swing.JMenuItem();
         AcercadeMnIt = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        creaClientesMnIt = new javax.swing.JMenuItem();
+        listClienteMnIt = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -54,6 +57,11 @@ public class InicioFrame extends javax.swing.JFrame {
         jMenuItem8 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenu12 = new javax.swing.JMenu();
+        jMenu14 = new javax.swing.JMenu();
+        jMenuItem10 = new javax.swing.JMenuItem();
+        jMenu15 = new javax.swing.JMenu();
+        jMenuItem11 = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
 
         jMenu4.setText("jMenu4");
 
@@ -101,16 +109,16 @@ public class InicioFrame extends javax.swing.JFrame {
 
         jMenu2.setText("Clientes");
 
-        jMenuItem3.setText("Crear");
-        jMenu2.add(jMenuItem3);
+        creaClientesMnIt.setText("Crear");
+        jMenu2.add(creaClientesMnIt);
 
-        jMenuItem1.setText("Listar");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        listClienteMnIt.setText("Listar");
+        listClienteMnIt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                listClienteMnItActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem1);
+        jMenu2.add(listClienteMnIt);
 
         jMenuBar1.add(jMenu2);
 
@@ -146,6 +154,24 @@ public class InicioFrame extends javax.swing.JFrame {
         jMenuBar1.add(jMenu10);
 
         jMenu12.setText("Reportes");
+
+        jMenu14.setText("Clientes");
+
+        jMenuItem10.setText("Listado");
+        jMenu14.add(jMenuItem10);
+
+        jMenu12.add(jMenu14);
+
+        jMenu15.setText("Cuentas");
+
+        jMenuItem11.setText("Extracto");
+        jMenu15.add(jMenuItem11);
+
+        jMenuItem12.setText("Transacciones");
+        jMenu15.add(jMenuItem12);
+
+        jMenu12.add(jMenu15);
+
         jMenuBar1.add(jMenu12);
 
         setJMenuBar(jMenuBar1);
@@ -192,9 +218,11 @@ public class InicioFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_AcercadeMnItActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void listClienteMnItActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listClienteMnItActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+        PersonasListadoFrm personasListado = new PersonasListadoFrm ();
+        personasListado.setVisible(true);
+    }//GEN-LAST:event_listClienteMnItActionPerformed
 
     /**
      * @param args the command line arguments
@@ -234,6 +262,7 @@ public class InicioFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem AcercadeMnIt;
     private javax.swing.JMenuItem SalirMnIt;
+    private javax.swing.JMenuItem creaClientesMnIt;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
@@ -241,6 +270,8 @@ public class InicioFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenu12;
     private javax.swing.JMenu jMenu13;
+    private javax.swing.JMenu jMenu14;
+    private javax.swing.JMenu jMenu15;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -250,14 +281,16 @@ public class InicioFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenuItem listClienteMnIt;
     // End of variables declaration//GEN-END:variables
 }

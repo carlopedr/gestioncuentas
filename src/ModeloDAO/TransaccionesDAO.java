@@ -5,10 +5,30 @@
  */
 package ModeloDAO;
 
+import Modelo.Transaccion;
+import java.util.List;
+
 /**
  *
  * @author Usuario
  */
 public class TransaccionesDAO {
+    public void crearTransaccion(Transaccion transaccion){
+        
+    }
+    public void borrarTransaccion(int id){
+        
+    }
+    public void actualizarTransaccion(int id){
+        
+    }
+    public List listarTransacciones(){
+        return null;
+        
+    }
+    public Transaccion buscarTransaccion(int id){
+        return null;
+        
+    }
     
 }
