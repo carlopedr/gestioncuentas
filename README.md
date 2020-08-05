@@ -10,7 +10,7 @@ Definir una clase abstracta Cuenta con los siguientes atributos:
 •	numerocuenta : entero largo
 •	saldo : double
 •	cliente : atributo de la clase Persona (que tiene nombre y apellidos, Número de documento de id y tipo de documento de id)
- y con los siguientes métodos:
+Debe incluir los siguientes métodos:
 •	Constructor parametrizado que recibe un cliente y un número de cuenta
 •	Setters y getters para los tres atributos
 •	ingresar(double): permitirá ingresar una cantidad en la cuenta.
