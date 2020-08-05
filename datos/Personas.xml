@@ -1,33 +1,38 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Cuentas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-	<Persona>
-		<id>12345</id>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Cuentas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Persona id="1">
 		<tipoid>CC</tipoid>
 		<nombre>Pedro Perez</nombre>
                 <email>pedro@gmail.com</email>
 	</Persona>
-        <Persona>
-		<id>1234</id>
+        <Persona id="2">
 		<tipoid>TI</tipoid>
 		<nombre>Juan Díaz</nombre>
                 <email>juandiaz@hotmail.com</email>
 	</Persona>
-	<Persona>
-		<id>7890</id>
+	<Persona id="3">
 		<tipoid>CE</tipoid>
 		<nombre>Erik Jones</nombre>
                 <email>erikjones@outlook.com</email>
 	</Persona>
-        <Persona>
-		<id>5432</id>
+        <Persona id="4">
 		<tipoid>CC</tipoid>
 		<nombre>Marcela González</nombre>
                 <email>mgonzalez@usco.edu.co</email>
 	</Persona>
-        <Persona>
-		<id>6754</id>
+        <Persona id="5">
 		<tipoid>CC</tipoid>
 		<nombre>María Ruiz</nombre>
                 <email>maria.ruiz@gmail.com</email>
 	</Persona>
+<Persona id="6">
+    <tipoid>CC</tipoid>
+    <nombre>Carlos</nombre>
+    <email>capedraza@gmail.com</email>
+</Persona>
+
+<Persona id="8">
+    <tipoid>RC</tipoid>
+    <nombre>James Rodríguez</nombre>
+    <email>jrodriguez@realmadrid.com</email>
+</Persona>
 </Cuentas>

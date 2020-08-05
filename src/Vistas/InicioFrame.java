@@ -43,8 +43,16 @@ public class InicioFrame extends javax.swing.JFrame {
         AcercadeMnIt = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenu13 = new javax.swing.JMenu();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
         jMenu10 = new javax.swing.JMenu();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
         jMenu12 = new javax.swing.JMenu();
 
         jMenu4.setText("jMenu4");
@@ -96,12 +104,45 @@ public class InicioFrame extends javax.swing.JFrame {
         jMenuItem3.setText("Crear");
         jMenu2.add(jMenuItem3);
 
+        jMenuItem1.setText("Listar");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
+
         jMenuBar1.add(jMenu2);
 
         jMenu7.setText("Cuentas");
+
+        jMenuItem4.setText("Crear");
+        jMenu7.add(jMenuItem4);
+
+        jMenuItem5.setText("Listar");
+        jMenu7.add(jMenuItem5);
+
         jMenuBar1.add(jMenu7);
 
+        jMenu13.setText("Conceptos");
+        jMenu13.setToolTipText("");
+
+        jMenuItem6.setText("Crear");
+        jMenu13.add(jMenuItem6);
+
+        jMenuItem7.setText("Listar");
+        jMenu13.add(jMenuItem7);
+
+        jMenuBar1.add(jMenu13);
+
         jMenu10.setText("Transacciones");
+
+        jMenuItem8.setText("Crear");
+        jMenu10.add(jMenuItem8);
+
+        jMenuItem9.setText("Listar");
+        jMenu10.add(jMenuItem9);
+
         jMenuBar1.add(jMenu10);
 
         jMenu12.setText("Reportes");
@@ -151,6 +192,10 @@ public class InicioFrame extends javax.swing.JFrame {
         
     }//GEN-LAST:event_AcercadeMnItActionPerformed
 
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -195,6 +240,7 @@ public class InicioFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu10;
     private javax.swing.JMenu jMenu11;
     private javax.swing.JMenu jMenu12;
+    private javax.swing.JMenu jMenu13;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -204,7 +250,14 @@ public class InicioFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     // End of variables declaration//GEN-END:variables
 }

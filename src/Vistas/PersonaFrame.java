@@ -6,6 +6,7 @@
 package Vistas;
 
 import Modelo.Persona;
+import ModeloDAO.PersonaDAO;
 import javax.swing.JOptionPane;
 
 /**
@@ -42,9 +43,6 @@ public class PersonaFrame extends javax.swing.JFrame {
         AceptarBtn = new javax.swing.JButton();
         LimpiarBtn = new javax.swing.JButton();
         SalirBtn = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        DatosTxtA = new javax.swing.JTextArea();
-        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,12 +98,6 @@ public class PersonaFrame extends javax.swing.JFrame {
             }
         });
 
-        DatosTxtA.setColumns(20);
-        DatosTxtA.setRows(5);
-        jScrollPane1.setViewportView(DatosTxtA);
-
-        jLabel6.setText("Datos Ingresados");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -117,37 +109,29 @@ public class PersonaFrame extends javax.swing.JFrame {
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(39, 39, 39)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(AceptarBtn)
+                                .addComponent(jLabel5)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel4)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(AceptarBtn)
-                                        .addComponent(jLabel5)))
+                                .addGap(39, 39, 39)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(nombreTxt)
+                                    .addComponent(emailTxt)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(39, 39, 39)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(nombreTxt)
-                                            .addComponent(emailTxt)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                    .addComponent(idTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                    .addComponent(tipoIdCBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                .addGap(0, 0, Short.MAX_VALUE))))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(25, 25, 25)
-                                        .addComponent(LimpiarBtn)
-                                        .addGap(42, 42, 42)
-                                        .addComponent(SalirBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(idTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(tipoIdCBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(25, 25, 25)
+                                .addComponent(LimpiarBtn)
+                                .addGap(42, 42, 42)
+                                .addComponent(SalirBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
@@ -177,11 +161,7 @@ public class PersonaFrame extends javax.swing.JFrame {
                     .addComponent(AceptarBtn)
                     .addComponent(LimpiarBtn)
                     .addComponent(SalirBtn))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         pack();
@@ -221,7 +201,8 @@ public class PersonaFrame extends javax.swing.JFrame {
             email = emailTxt.getText();
             tipoid = (String) tipoIdCBox.getSelectedItem();
             Persona per = new Persona(id, tipoid, nombre, email);
-            DatosTxtA.setText(per.toString());
+            PersonaDAO perDAO=new PersonaDAO();
+            perDAO.crearPersona(per);
         }
         catch (NumberFormatException e){
             JOptionPane.showMessageDialog(null, "Error en lod datos ingresados");
@@ -283,7 +264,6 @@ public class PersonaFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AceptarBtn;
-    private javax.swing.JTextArea DatosTxtA;
     private javax.swing.JButton LimpiarBtn;
     private javax.swing.JButton SalirBtn;
     private javax.swing.JTextField emailTxt;
@@ -293,8 +273,6 @@ public class PersonaFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nombreTxt;
     private javax.swing.JComboBox<String> tipoIdCBox;
     // End of variables declaration//GEN-END:variables
