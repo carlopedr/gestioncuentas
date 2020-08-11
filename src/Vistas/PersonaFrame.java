@@ -201,8 +201,12 @@ public class PersonaFrame extends javax.swing.JFrame {
             email = emailTxt.getText();
             tipoid = (String) tipoIdCBox.getSelectedItem();
             Persona per = new Persona(id, tipoid, nombre, email);
-            PersonaDAO perDAO=new PersonaDAO();
+            PersonaDAO perDAO = new PersonaDAO();
             perDAO.crearPersona(per);
+            JOptionPane.showMessageDialog(null, "Registro guardado");
+            idTxt.setText("");
+            nombreTxt.setText("");
+            emailTxt.setText("");
         }
         catch (NumberFormatException e){
             JOptionPane.showMessageDialog(null, "Error en lod datos ingresados");

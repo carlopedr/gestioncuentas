@@ -31,7 +31,10 @@ public class Test {
         //perDAO.crearPersona(p2);
         Persona p2=perDAO.buscarPersona(7);
         System.out.println("Busqueda: "+p2);*/
-        perDAO.eliminarPersona(7);
+        //perDAO.eliminarPersona(7);
+        Persona pact=new Persona(1,"TI","Carlos P","carlosp@gmail.com");
+        perDAO.actualizarPersona(pact);
+        
         
         
     }

@@ -4,7 +4,7 @@
  */
 package Modelo;
 
-public class Persona {
+public class Persona implements Comparable{
     private int id;
     private String tipoid;
     private String nombre;
@@ -54,8 +54,17 @@ public class Persona {
 
     @Override
     public String toString() {
-        return "Persona{" + "id=" + id + ", tipoid=" + tipoid + ", nombre=" + nombre + ", email=" + email + '}';
+        return nombre;
     }
+
+    @Override
+    public int compareTo(Object o) {
+        Persona persona = (Persona) o;
+        return this.getNombre().compareTo(persona.getNombre());
+
+    }
+
+
     
     
     

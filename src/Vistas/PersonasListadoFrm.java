@@ -69,7 +69,7 @@ public class PersonasListadoFrm extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        clientesTbl.setColumnSelectionAllowed(true);
+        clientesTbl.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         clientesTbl.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(clientesTbl);
         clientesTbl.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);

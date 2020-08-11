@@ -1,7 +1,5 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Clase PersonaDAO Completa
  */
 package ModeloDAO;
 
@@ -34,6 +32,7 @@ import org.xml.sax.SAXException;
  * @author Usuario
  */
 public class PersonaDAO {
+
     public void crearPersona(Persona persona) {
         //Registar un objeto persona en el archivo XML 
         File file = new File("datos/Personas.xml");
@@ -56,8 +55,8 @@ public class PersonaDAO {
             nuevaPersona.appendChild(nuevoNombre);
             nuevaPersona.appendChild(nuevoEmail);
             nRaiz.appendChild(nuevaPersona);
-            TransformerFactory transFactory= TransformerFactory.newInstance();
-            Transformer transformer=transFactory.newTransformer();
+            TransformerFactory transFactory = TransformerFactory.newInstance();
+            Transformer transformer = transFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
             StreamResult result = new StreamResult(file);
             transformer.transform(source, result);
@@ -73,14 +72,15 @@ public class PersonaDAO {
             System.out.println(e.getMessage());
         }
         //return list;
-    
-}
-public void eliminarPersona(int id){
+
+    }
+
+    public void eliminarPersona(int id) {
         //Eliminar un registro del el archivo XML
         //que coincida con el id
         //ArrayList <Element> nodos = new ArrayList();
         File file = new File("datos/Personas.xml");
-        try {            
+        try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(file);
@@ -96,8 +96,8 @@ public void eliminarPersona(int id){
                     }
                 }
             }
-            TransformerFactory transFactory= TransformerFactory.newInstance();
-            Transformer transformer=transFactory.newTransformer();
+            TransformerFactory transFactory = TransformerFactory.newInstance();
+            Transformer transformer = transFactory.newTransformer();
             DOMSource source = new DOMSource(doc);
             StreamResult result = new StreamResult(file);
             transformer.transform(source, result);
@@ -112,12 +112,59 @@ public void eliminarPersona(int id){
         } catch (TransformerException e) {
             System.out.println(e.getMessage());
         }
-        
+
     }
-    public void actualizarPersona (Persona persona){
-        
+
+    public void actualizarPersona(Persona persona) {
+        File file = new File("datos/Personas.xml");
+        try {            //System.out.println("XML:"+file.canRead());
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(file);
+            Node nRaiz = doc.getDocumentElement();
+            doc.getDocumentElement().normalize();
+            NodeList nList = doc.getElementsByTagName("Persona");
+            for (int temp = 0; temp < nList.getLength(); temp++) {
+                Node nNode = nList.item(temp);
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eElement = (Element) nNode;
+                    if (persona.getId() == Integer.parseInt(eElement.getAttribute("id"))) {
+                        Element actPersona = doc.createElement("Persona");
+                        actPersona.setAttribute("id", String.valueOf(persona.getId()));
+                        Element actTipoId = doc.createElement("tipoid");
+                        actTipoId.setTextContent(persona.getTipoid());
+                        Element actNombre = doc.createElement("nombre");
+                        actNombre.setTextContent(persona.getNombre());
+                        Element actEmail = doc.createElement("email");
+                        actEmail.setTextContent(persona.getEmail());
+                        actPersona.appendChild(actTipoId);
+                        actPersona.appendChild(actNombre);
+                        actPersona.appendChild(actEmail);
+                        nRaiz.replaceChild(actPersona, eElement);
+                    }
+                }
+            }
+            TransformerFactory transFactory = TransformerFactory.newInstance();
+            Transformer transformer = transFactory.newTransformer();
+            DOMSource source = new DOMSource(doc);
+            StreamResult result = new StreamResult(file);
+            transformer.transform(source, result);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        } catch (ParserConfigurationException e) {
+            System.out.println(e.getMessage());
+        } catch (SAXException e) {
+            System.out.println(e.getMessage());
+        } catch (TransformerConfigurationException e) {
+            System.out.println(e.getMessage());
+        } catch (TransformerException e) {
+            System.out.println(e.getMessage());
+        }
+        //return list;
+
     }
-    public Persona buscarPersona(int id){
+
+    public Persona buscarPersona(int id) {
         Persona persona = new Persona();
         File file = new File("datos/Personas.xml");
         try {
@@ -136,9 +183,9 @@ public void eliminarPersona(int id){
                         persona.setNombre(eElement.getElementsByTagName("nombre").item(0).getTextContent());
                         persona.setTipoid(eElement.getElementsByTagName("tipoid").item(0).getTextContent());
                         persona.setEmail(eElement.getElementsByTagName("email").item(0).getTextContent());
+                    } else {
+                        persona = null;
                     }
-                    else
-                        persona=null;
                 }
             }
         } catch (IOException e) {
@@ -152,6 +199,7 @@ public void eliminarPersona(int id){
         return persona;
         //return null;
     }
+
     public List listarPersonas() {
         ArrayList<Persona> list = new ArrayList();
         int id;
