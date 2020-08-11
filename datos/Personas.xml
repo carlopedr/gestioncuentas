@@ -35,4 +35,4 @@
     <nombre>James Rodríguez</nombre>
     <email>jrodriguez@realmadrid.com</email>
 </Persona>
-</Cuentas>
+<Persona id="100"><tipoid>CE</tipoid><nombre>Peter</nombre><email>Sagan</email></Persona><Persona id="101"><tipoid>CC</tipoid><nombre>Gabriel Garcia</nombre><email>gabo@usco.edu.co</email></Persona></Cuentas>

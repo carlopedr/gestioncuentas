@@ -140,7 +140,6 @@ public class PersonasListadoFrm extends javax.swing.JFrame {
 
     private void generaClBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generaClBtnActionPerformed
         // TODO add your handling code here:
-        
         DefaultTableModel modelo=(DefaultTableModel) clientesTbl.getModel();
         modelo.setRowCount(0);
         PersonaDAO perDAO = new PersonaDAO();

@@ -78,8 +78,8 @@ public class PersonaDAO {
 public void eliminarPersona(int id){
         //Eliminar un registro del el archivo XML
         //que coincida con el id
-        ArrayList <Element> nodos = new ArrayList();
-         File file = new File("datos/Personas.xml");
+        //ArrayList <Element> nodos = new ArrayList();
+        File file = new File("datos/Personas.xml");
         try {            
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();

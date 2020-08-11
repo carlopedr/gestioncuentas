@@ -6,6 +6,7 @@
 package Controlador;
 
 import Vistas.AcercadeDialog;
+import Vistas.PersonaFrame;
 import Vistas.PersonasListadoFrm;
 
 /**
@@ -38,6 +39,9 @@ public class InicioFrame extends javax.swing.JFrame {
         jMenu5 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenu11 = new javax.swing.JMenu();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu16 = new javax.swing.JMenu();
+        jMenu17 = new javax.swing.JMenu();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -79,6 +83,12 @@ public class InicioFrame extends javax.swing.JFrame {
 
         jMenu11.setText("jMenu11");
 
+        jMenu16.setText("File");
+        jMenuBar2.add(jMenu16);
+
+        jMenu17.setText("Edit");
+        jMenuBar2.add(jMenu17);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Arial Black", 0, 24)); // NOI18N
@@ -110,6 +120,11 @@ public class InicioFrame extends javax.swing.JFrame {
         jMenu2.setText("Clientes");
 
         creaClientesMnIt.setText("Crear");
+        creaClientesMnIt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                creaClientesMnItActionPerformed(evt);
+            }
+        });
         jMenu2.add(creaClientesMnIt);
 
         listClienteMnIt.setText("Listar");
@@ -224,6 +239,13 @@ public class InicioFrame extends javax.swing.JFrame {
         personasListado.setVisible(true);
     }//GEN-LAST:event_listClienteMnItActionPerformed
 
+    private void creaClientesMnItActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_creaClientesMnItActionPerformed
+        // TODO add your handling code here:
+        PersonaFrame personafrm = new PersonaFrame();
+        personafrm.setVisible(true);
+        
+    }//GEN-LAST:event_creaClientesMnItActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -272,6 +294,8 @@ public class InicioFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu13;
     private javax.swing.JMenu jMenu14;
     private javax.swing.JMenu jMenu15;
+    private javax.swing.JMenu jMenu16;
+    private javax.swing.JMenu jMenu17;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -281,6 +305,7 @@ public class InicioFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu8;
     private javax.swing.JMenu jMenu9;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;

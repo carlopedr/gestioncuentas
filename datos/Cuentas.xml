@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-
-
-<root>
-    
-</root>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Cuentas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Cuenta id="1">
+    <saldo>1</saldo>
+    <cliente1</cliente>
+    <tipocuenta>A</tipocuenta>
+    <interes>0.015</interes>
+    <saldomin>0</saldomin>
+</Cuenta>    
+</Cuentas>

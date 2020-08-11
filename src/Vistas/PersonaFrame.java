@@ -77,7 +77,7 @@ public class PersonaFrame extends javax.swing.JFrame {
 
         tipoIdCBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CC", "CE", "TI", "RC", "Otro" }));
 
-        AceptarBtn.setText("Aceptar");
+        AceptarBtn.setText("Crear");
         AceptarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AceptarBtnActionPerformed(evt);
