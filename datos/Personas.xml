@@ -20,15 +20,17 @@
 		<nombre>María Ruiz</nombre>
                 <email>maria.ruiz@gmail.com</email>
 	</Persona>
-<Persona id="6">
-    <tipoid>CC</tipoid>
-    <nombre>Carlos</nombre>
-    <email>capedraza@gmail.com</email>
-</Persona>
+<Persona id="6"><tipoid>CC</tipoid><nombre>Diego Ruiz</nombre><email>diegoruiz@gmail.com</email></Persona>
 
 <Persona id="8">
     <tipoid>RC</tipoid>
     <nombre>James Rodríguez</nombre>
     <email>jrodriguez@realmadrid.com</email>
 </Persona>
-<Persona id="100"><tipoid>CE</tipoid><nombre>Peter</nombre><email>Sagan</email></Persona><Persona id="101"><tipoid>CC</tipoid><nombre>Gabriel Garcia</nombre><email>gabo@usco.edu.co</email></Persona><Persona id="345"><tipoid>Otro</tipoid><nombre>Homero Simpson</nombre><email>homero@plantaburns.com</email></Persona></Cuentas>
+<Persona id="100"><tipoid>CE</tipoid><nombre>Peter</nombre><email>Sagan</email></Persona><Persona id="101"><tipoid>CC</tipoid><nombre>Gabriel Garcia</nombre><email>gabo@usco.edu.co</email></Persona>
+<Persona id="345">
+    <tipoid>Otro</tipoid>
+    <nombre>Homero Simpson</nombre>
+    <email>homero@plantaburns.com</email>
+</Persona>
+</Cuentas>

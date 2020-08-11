@@ -16,6 +16,8 @@ public class ConceptoFrame extends javax.swing.JFrame {
      */
     public ConceptoFrame() {
         initComponents();
+         //Para que la forma salga en el centro
+        this.setLocationRelativeTo(null);
         //Agregar los radio buttons al grupo
         efectoBtnGrp.add(aumentaRadBtn);
         efectoBtnGrp.add(disminuyeRadBtn);

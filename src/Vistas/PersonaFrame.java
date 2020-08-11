@@ -18,8 +18,26 @@ public class PersonaFrame extends javax.swing.JFrame {
     /**
      * Creates new form PersonaFrame
      */
+    
+    public static boolean personaEdicion=false;
     public PersonaFrame() {
         initComponents();
+         //Para que la forma salga en el centro
+        this.setLocationRelativeTo(null);
+        PersonasListadoFrm personaLista = new PersonasListadoFrm();
+        personaEdicion = personaLista.edicion;
+        if (personaLista.edicion){
+            this.titulo.setText("Actualizar Cliente");
+            int id=personaLista.perEditar.getId();
+            this.idTxt.setText(String.valueOf(id));
+            String tipoId=personaLista.perEditar.getTipoid();
+            tipoIdCBox.setSelectedItem(tipoId);
+            this.nombreTxt.setText(personaLista.perEditar.getNombre());
+            this.emailTxt.setText(personaLista.perEditar.getEmail());
+            this.AceptarBtn.setText("Actualizar");
+            
+        }
+            
     }
 
     /**
@@ -31,7 +49,7 @@ public class PersonaFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        titulo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -46,9 +64,9 @@ public class PersonaFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel1.setText("Gestión de Personas");
+        titulo.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        titulo.setForeground(new java.awt.Color(204, 0, 0));
+        titulo.setText("Gestión de Personas");
 
         jLabel2.setText("No. Identificación");
 
@@ -106,7 +124,7 @@ public class PersonaFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(74, 74, 74)
-                        .addComponent(jLabel1))
+                        .addComponent(titulo))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(39, 39, 39)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -139,7 +157,7 @@ public class PersonaFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addComponent(jLabel1)
+                .addComponent(titulo)
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -202,8 +220,16 @@ public class PersonaFrame extends javax.swing.JFrame {
             tipoid = (String) tipoIdCBox.getSelectedItem();
             Persona per = new Persona(id, tipoid, nombre, email);
             PersonaDAO perDAO = new PersonaDAO();
-            perDAO.crearPersona(per);
-            JOptionPane.showMessageDialog(null, "Registro guardado");
+            if (!personaEdicion) {
+                perDAO.crearPersona(per);
+                JOptionPane.showMessageDialog(null, "Registro guardado");
+            }
+            else{
+                perDAO.actualizarPersona(per);
+                JOptionPane.showMessageDialog(null, "Registro actualizado");
+            }
+                
+            
             idTxt.setText("");
             nombreTxt.setText("");
             emailTxt.setText("");
@@ -213,10 +239,7 @@ public class PersonaFrame extends javax.swing.JFrame {
             idTxt.setText("");
             idTxt.requestFocus();
         }
-        
-        
-        
-        
+    
     }//GEN-LAST:event_AceptarBtnActionPerformed
 
     private void idTxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_idTxtKeyTyped
@@ -272,12 +295,12 @@ public class PersonaFrame extends javax.swing.JFrame {
     private javax.swing.JButton SalirBtn;
     private javax.swing.JTextField emailTxt;
     private javax.swing.JTextField idTxt;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField nombreTxt;
     private javax.swing.JComboBox<String> tipoIdCBox;
+    private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }

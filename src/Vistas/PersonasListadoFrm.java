@@ -2,6 +2,7 @@ package Vistas;
 
 import Modelo.Persona;
 import ModeloDAO.PersonaDAO;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -22,8 +23,28 @@ public class PersonasListadoFrm extends javax.swing.JFrame {
     /**
      * Creates new form PersonasListadoFrm
      */
+    //Objeto que se va a enviar la forma de edición
+    public static Persona perEditar;
+    //Variable para indicar a la forma de Personas que es para Edicion
+    public static boolean edicion=false;
+    
     public PersonasListadoFrm() {
         initComponents();
+         //Para que la forma salga en el centro
+        this.setLocationRelativeTo(null);
+        DefaultTableModel modelo=(DefaultTableModel) clientesTbl.getModel();
+        modelo.setRowCount(0);
+        PersonaDAO perDAO = new PersonaDAO();
+        List<Persona> list = perDAO.listarPersonas();
+        Collections.sort(list);
+        Iterator<Persona> iter = list.iterator();
+        Persona per = null;
+        while (iter.hasNext()) {
+            per = iter.next();
+            Object filaNueva[] = {per.getId(),per.getTipoid(),per.getNombre(),per.getEmail()};
+            modelo.addRow(filaNueva);
+            
+        }
     }
     
 
@@ -41,7 +62,7 @@ public class PersonasListadoFrm extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         generaClBtn = new javax.swing.JButton();
         salirBtn = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        EditClienteBtn = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -91,7 +112,12 @@ public class PersonasListadoFrm extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Editar");
+        EditClienteBtn.setText("Editar");
+        EditClienteBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EditClienteBtnActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("Eliminar");
 
@@ -103,7 +129,7 @@ public class PersonasListadoFrm extends javax.swing.JFrame {
                 .addGap(48, 48, 48)
                 .addComponent(generaClBtn)
                 .addGap(63, 63, 63)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(EditClienteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(52, 52, 52)
                 .addComponent(jButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
@@ -130,7 +156,7 @@ public class PersonasListadoFrm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(generaClBtn)
                     .addComponent(salirBtn)
-                    .addComponent(jButton1)
+                    .addComponent(EditClienteBtn)
                     .addComponent(jButton2))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
@@ -144,6 +170,7 @@ public class PersonasListadoFrm extends javax.swing.JFrame {
         modelo.setRowCount(0);
         PersonaDAO perDAO = new PersonaDAO();
         List<Persona> list = perDAO.listarPersonas();
+        Collections.sort(list);
         Iterator<Persona> iter = list.iterator();
         Persona per = null;
         while (iter.hasNext()) {
@@ -160,6 +187,24 @@ public class PersonasListadoFrm extends javax.swing.JFrame {
         // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_salirBtnActionPerformed
+
+    private void EditClienteBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditClienteBtnActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel modelo=(DefaultTableModel) clientesTbl.getModel();
+        int fila = clientesTbl.getSelectedRow();
+        int id=(int) modelo.getValueAt(fila,0);
+        String tipoId=(String) modelo.getValueAt(fila,1);
+        String nombre=(String) modelo.getValueAt(fila,2);
+        String email=(String) modelo.getValueAt(fila,3);
+        perEditar=new Persona(id,tipoId,nombre,email);
+        edicion=true;
+        PersonaFrame personaEdFrm= new PersonaFrame();
+        personaEdFrm.setVisible(true);
+        this.setVisible(false);
+        
+        
+        //System.out.println(perEditar.toString());
+    }//GEN-LAST:event_EditClienteBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -197,9 +242,9 @@ public class PersonasListadoFrm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton EditClienteBtn;
     private javax.swing.JTable clientesTbl;
     private javax.swing.JButton generaClBtn;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

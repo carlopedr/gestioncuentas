@@ -16,6 +16,8 @@ public class TransaccionesFrame extends javax.swing.JFrame {
      */
     public TransaccionesFrame() {
         initComponents();
+         //Para que la forma salga en el centro
+        this.setLocationRelativeTo(null);
     }
 
     /**

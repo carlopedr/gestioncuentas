@@ -29,6 +29,8 @@ public class CuentasFrame extends javax.swing.JFrame {
     
     public CuentasFrame() {
         initComponents();
+         //Para que la forma salga en el centro
+        this.setLocationRelativeTo(null);
         //Llenar el comboBox de los datos de los clientes
         String itemPersonaCmb = null;
         PersonaDAO perDAO = new PersonaDAO();
