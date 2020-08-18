@@ -12,14 +12,17 @@ package Modelo;
 public class Transaccion {
     private int id;
     private Cuenta cuenta;
-    private Concepto concepto;
+    private Conceptos concepto;
     private double valor;
 
-    public Transaccion(int id, Cuenta cuenta, Concepto concepto, double valor) {
+    public Transaccion(int id, Cuenta cuenta, Conceptos concepto, double valor) {
         this.id = id;
         this.cuenta = cuenta;
         this.concepto = concepto;
         this.valor = valor;
+    }
+
+    public Transaccion() {
     }
 
     public int getId() {
@@ -38,11 +41,11 @@ public class Transaccion {
         this.cuenta = cuenta;
     }
 
-    public Concepto getConcepto() {
+    public Conceptos getConcepto() {
         return concepto;
     }
 
-    public void setConcepto(Concepto concepto) {
+    public void setConcepto(Conceptos concepto) {
         this.concepto = concepto;
     }
 

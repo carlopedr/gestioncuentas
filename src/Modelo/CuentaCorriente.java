@@ -17,6 +17,15 @@ public class CuentaCorriente extends Cuenta{
         super(numerocuenta, cliente);
     }
 
+    public CuentaCorriente() {
+    }
+
+    public double getInteres() {
+        return interes;
+    }
+
+   
+
     @Override
     public void retirar(double cantidad) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

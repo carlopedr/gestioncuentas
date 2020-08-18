@@ -22,6 +22,9 @@ public abstract class Cuenta {
         this.cliente = cliente;
     }
 
+    public Cuenta() {
+    }
+
     public int getNumerocuenta() {
         return numerocuenta;
     }

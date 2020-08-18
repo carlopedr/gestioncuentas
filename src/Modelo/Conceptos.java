@@ -9,15 +9,18 @@ package Modelo;
  *
  * @author Usuario
  */
-public class Concepto {
+public class Conceptos {
     private int id;
     private String nombre;
     private String efecto;
 
-    public Concepto(int id, String nombre, String efecto) {
+    public Conceptos(int id, String nombre, String efecto) {
         this.id = id;
         this.nombre = nombre;
         this.efecto = efecto;
+    }
+
+    public Conceptos() {
     }
 
     public int getId() {
