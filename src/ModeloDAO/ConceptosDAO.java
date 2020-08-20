@@ -160,7 +160,7 @@ public class ConceptosDAO {
                         concepto.setId(Integer.parseInt(eElement.getAttribute("id")));
                         concepto.setNombre(eElement.getElementsByTagName("nombre").item(0).getTextContent());
                         concepto.setEfecto(eElement.getElementsByTagName("tipoid").item(0).getTextContent());
-
+                        break;
                     } else {
                         concepto = null;
                     }

@@ -124,8 +124,58 @@ public class CuentasDAO {
         return null;
         
     }
+    @SuppressWarnings("empty-statement")
     public Object buscarCuenta(int id){
-        return null;
+        //Una variable para cada atributo del archivo XML
+        Object cuenta = null;
+        int idcuenta;
+        double saldo;
+        int idcliente;
+        String tipocuenta;
+        double interes;
+        double saldomin;
+        File file = new File("datos/Cuentas.xml");
+        try {
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(file);
+            doc.getDocumentElement().normalize();
+            NodeList nList = doc.getElementsByTagName("Cuenta");
+            for (int temp = 0; temp < nList.getLength(); temp++) {
+                Node nNode = nList.item(temp);
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eElement = (Element) nNode;
+                    if (id == Integer.parseInt(eElement.getAttribute("id"))) {
+                        
+                        idcuenta=Integer.parseInt(eElement.getAttribute("id"));
+                        saldo=Double.parseDouble(eElement.getElementsByTagName("saldo").item(0).getTextContent());
+                        idcliente=Integer.parseInt(eElement.getElementsByTagName("cliente").item(0).getTextContent());
+                        tipocuenta=eElement.getElementsByTagName("tipocuenta").item(0).getTextContent();
+                        interes=Double.parseDouble(eElement.getElementsByTagName("interes").item(0).getTextContent());;
+                        saldomin=Double.parseDouble(eElement.getElementsByTagName("saldomin").item(0).getTextContent());;
+                        //Obtener el Cliente
+                        PersonaDAO clienteDAO=new PersonaDAO();
+                        Persona cliente=new Persona();
+                        cliente=clienteDAO.buscarPersona(idcliente);
+                        //Determinar el tipo de cuenta y crear el objeto correspondiente
+                        if("A".equals(tipocuenta)){
+                            cuenta = new CuentaAhorro(interes,saldomin,idcuenta,cliente);
+                        }
+                        else{
+                            cuenta = new CuentaCorriente(idcuenta,cliente);
+                        } 
+                        break;
+                    } else {
+                        cuenta = null;
+                    }
+                }
+            }
+        } catch (IOException | ParserConfigurationException | SAXException e) {
+            System.out.println(e.toString());
+            
+        }
+        return cuenta;
+                
         
     }
 }

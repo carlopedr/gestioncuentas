@@ -1,10 +1,23 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Cuentas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Cuentas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <Cuenta id="1">
     <saldo>1</saldo>
-    <cliente1</cliente>
+    <cliente>1</cliente>
     <tipocuenta>A</tipocuenta>
     <interes>0.015</interes>
     <saldomin>0</saldomin>
 </Cuenta>    
+<Cuenta id="2">
+    <saldo>0.0</saldo>
+    <cliente>7</cliente>
+    <tipocuenta>A</tipocuenta>
+    <interes>0.015</interes>
+    <saldomin>1000.0</saldomin>
+</Cuenta>
+<Cuenta id="3">
+    <saldo>0.0</saldo>
+    <cliente>7</cliente>
+    <tipocuenta>C</tipocuenta>
+    <interes>0.015</interes>
+    <saldomin>0.0</saldomin>
+</Cuenta>
 </Cuentas>

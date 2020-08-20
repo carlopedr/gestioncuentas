@@ -3,6 +3,8 @@
  */
 package ModeloDAO;
 
+import Modelo.Conceptos;
+import Modelo.Cuenta;
 import Modelo.Transaccion;
 import java.io.File;
 import java.io.IOException;
@@ -31,6 +33,10 @@ public class TransaccionesDAO {
 
     public void crearTransaccion(Transaccion transaccion) {
         File file = new File("datos/Transacciones.xml");
+        int idTransaccion=transaccion.getId();
+        int idCuenta=transaccion.getCuenta().getNumerocuenta();
+        int idConcepto=transaccion.getConcepto().getId();
+        double valor=transaccion.getValor();
         try {            //System.out.println("XML:"+file.canRead());
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -39,13 +45,13 @@ public class TransaccionesDAO {
             //Para obtener el nodo raiz
             Node nRaiz = doc.getDocumentElement();
             Element nuevaTransaccion = doc.createElement("Transaccion");
-            nuevaTransaccion.setAttribute("id", String.valueOf(transaccion.getId()));
-            Element nuevaCuenta = doc.createElement("Cuenta");
-            nuevaCuenta.setTextContent(String.valueOf(transaccion.getCuenta()));
-            Element nuevoConcepto = doc.createElement("Concepto");
-            nuevoConcepto.setTextContent(String.valueOf(transaccion.getConcepto()));
-            Element nuevoValor = doc.createElement("Valor");
-            nuevoValor.setTextContent(String.valueOf(transaccion.getValor()));
+            nuevaTransaccion.setAttribute("id", String.valueOf(idTransaccion));
+            Element nuevaCuenta = doc.createElement("cuenta");
+            nuevaCuenta.setTextContent(String.valueOf(idCuenta));
+            Element nuevoConcepto = doc.createElement("concepto");
+            nuevoConcepto.setTextContent(String.valueOf(idConcepto));
+            Element nuevoValor = doc.createElement("valor");
+            nuevoValor.setTextContent(String.valueOf(valor));
             nuevaTransaccion.appendChild(nuevaCuenta);
             nuevaTransaccion.appendChild(nuevoConcepto);
             nuevaTransaccion.appendChild(nuevoValor);
@@ -107,9 +113,7 @@ public class TransaccionesDAO {
         } catch (TransformerException e) {
             System.out.println(e.getMessage());
         }
-
     }
-
     public void actualizarTransaccion(Transaccion transaccion) {
         File file = new File("datos/Conceptos.xml");
         try {            //System.out.println("XML:"+file.canRead());
@@ -162,6 +166,10 @@ public class TransaccionesDAO {
 
     public Transaccion buscarTransaccion(int id) {
         Transaccion transaccion = new Transaccion();
+        Object cuenta;
+        Conceptos concepto;
+        int idCuenta;
+        int idConcepto;
         File file = new File("datos/Transacciones.xml");
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -176,9 +184,16 @@ public class TransaccionesDAO {
                     //Persona persona = new Persona();
                     if (id == Integer.parseInt(eElement.getAttribute("id"))) {
                         transaccion.setId(Integer.parseInt(eElement.getAttribute("id")));
-                        transaccion.setCuenta(eElement.getElementsByTagName("Cuenta").item(0).getTextContent());
-                        transaccion.setConcepto(eElement.getElementsByTagName("Concepto").item(0).getTextContent());
-                        transaccion.setValor(eElement.getElementsByTagName("Valor").item(0).getTextContent());
+                        idCuenta=Integer.parseInt(eElement.getElementsByTagName("cuenta").item(0).getTextContent());
+                        CuentasDAO cuentaDAO=new CuentasDAO();
+                        cuenta=cuentaDAO.buscarCuenta(idCuenta);
+                        transaccion.setCuenta((Cuenta) cuenta);
+                        idConcepto=Integer.parseInt(eElement.getElementsByTagName("concepto").item(0).getTextContent());
+                        ConceptosDAO conceptosDAO = new ConceptosDAO();
+                        concepto=conceptosDAO.buscarConcepto(idConcepto);
+                        transaccion.setConcepto(concepto);
+                        transaccion.setValor(Double.parseDouble(eElement.getElementsByTagName("Valor").item(0).getTextContent()));
+                        break;
                     } else {
                         transaccion = null;
                     }
@@ -196,7 +211,10 @@ public class TransaccionesDAO {
 
     public List listarTransacciones() {
         ArrayList<Transaccion> list = new ArrayList();
-        int id;
+        Object cuenta;
+        Conceptos concepto;
+        int idCuenta;
+        int idConcepto;
         File file = new File("datos/Transacciones.xml");
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -209,11 +227,18 @@ public class TransaccionesDAO {
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
                     Transaccion transaccion = new Transaccion();
+                    //
                     transaccion.setId(Integer.parseInt(eElement.getAttribute("id")));
-                    transaccion.setCuenta(eElement.getElementsByTagName("Cuenta").item(0).getTextContent());
-                    transaccion.setConcepto(eElement.getElementsByTagName("Concepto").item(0).getTextContent());
-                    transaccion.setValor(eElement.getElementsByTagName("Valor").item(0).getTextContent());
-
+                    idCuenta = Integer.parseInt(eElement.getElementsByTagName("cuenta").item(0).getTextContent());
+                    CuentasDAO cuentaDAO = new CuentasDAO();
+                    cuenta = cuentaDAO.buscarCuenta(idCuenta);
+                    transaccion.setCuenta((Cuenta) cuenta);
+                    idConcepto = Integer.parseInt(eElement.getElementsByTagName("concepto").item(0).getTextContent());
+                    ConceptosDAO conceptosDAO = new ConceptosDAO();
+                    concepto = conceptosDAO.buscarConcepto(idConcepto);
+                    transaccion.setConcepto(concepto);
+                    transaccion.setValor(Double.parseDouble(eElement.getElementsByTagName("Valor").item(0).getTextContent()));
+                    //
                     list.add(transaccion);
                 }
             }

@@ -177,12 +177,12 @@ public class PersonaDAO {
                 Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
-                    //Persona persona = new Persona();
                     if (id == Integer.parseInt(eElement.getAttribute("id"))) {
                         persona.setId(Integer.parseInt(eElement.getAttribute("id")));
                         persona.setNombre(eElement.getElementsByTagName("nombre").item(0).getTextContent());
                         persona.setTipoid(eElement.getElementsByTagName("tipoid").item(0).getTextContent());
                         persona.setEmail(eElement.getElementsByTagName("email").item(0).getTextContent());
+                        break;
                     } else {
                         persona = null;
                     }
