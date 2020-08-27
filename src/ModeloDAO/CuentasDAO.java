@@ -141,36 +141,15 @@ public class CuentasDAO {
             System.out.println(e.toString());
         }
     }
-    public void actualizarCuenta(int id){
+   public void actualizarCuenta(Object cuenta) {
+        //Una variable para cada atributo del archivo de salida
         int idcuenta;
         double saldo;
         int idcliente;
         String tipocuenta;
         double interes;
         double saldomin;
-        //Se crean dos objetos de cada tipo de cuenta.
-        CuentaAhorro cAhorro = new CuentaAhorro();
-        CuentaCorriente cCorriente = new CuentaCorriente();
-        //Se verifica que objeto se esta recibiendo en el método
-        if (cuenta.getClass() == cAhorro.getClass()) {
-            System.out.println("Clase de cuenta es Ahorros");
-            cAhorro = (CuentaAhorro) cuenta;
-            idcuenta = cAhorro.getNumerocuenta();
-            saldo = cAhorro.getSaldo();
-            idcliente = cAhorro.getCliente().getId();
-            tipocuenta = "A";
-            interes = cAhorro.getInteres();
-            saldomin = cAhorro.getSaldomin();
-        } else {
-            System.out.println("Clase de cuenta es Corriente");
-            cCorriente = (CuentaCorriente) cuenta;
-            idcuenta = cCorriente.getNumerocuenta();
-            saldo = cCorriente.getSaldo();
-            idcliente = cCorriente.getCliente().getId();
-            tipocuenta = "C";
-            interes = cCorriente.getInteres();
-            saldomin = cCorriente.getSaldo();
-        }
+
         File file = new File("datos/Cuentas.xml");//para acceder a la ubicacion del archivo en este caso carpeta datos/Cuentas
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -178,33 +157,77 @@ public class CuentasDAO {
             Document doc = dBuilder.parse(file);
             Node nRaiz = doc.getDocumentElement();
             doc.getDocumentElement().normalize();
-            NodeList nList = doc.getElementsByTagName("Persona");
+            NodeList nList = doc.getElementsByTagName("Cuentas");
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
-                    if (cuenta.getClass() == Integer.TYPE(eElement.getAttribute("id"))) {
-                        //Nodo raiz
-                        Element actCuenta = doc.createElement("Cuenta");
-                        actCuenta.setAttribute("id", String.valueOf(idcuenta));
-                        Element actSaldo = doc.createElement("saldo");
-                        actSaldo.setTextContent(String.valueOf(saldo));
-                        Element actCliente = doc.createElement("cliente");
-                        actCliente.setTextContent(String.valueOf(idcliente));
-                        Element actTipoCuenta = doc.createElement("tipocuenta");
-                        actTipoCuenta.setTextContent(tipocuenta);
-                        Element actInteres = doc.createElement("interes");
-                        actInteres.setTextContent(String.valueOf(interes));
-                        Element actSaldoMin = doc.createElement("saldomin");
-                        actSaldoMin.setTextContent(String.valueOf(saldomin));
-                        actCuenta.appendChild(actSaldo);
-                        actCuenta.appendChild(actCliente);
-                        actCuenta.appendChild(actTipoCuenta);
-                        actCuenta.appendChild(actInteres);
-                        actCuenta.appendChild(actSaldoMin);
-                        nRaiz.replaceChild(actCuenta, eElement);
+                    //Se crean dos objetos de cada tipo de cuenta.
+                    CuentaAhorro cAhorro = new CuentaAhorro();
+                    CuentaCorriente cCorriente = new CuentaCorriente();
+                    //Se verifica que objeto se esta recibiendo en el método
+                    if (cuenta.getClass() == cAhorro.getClass()) {
+                        System.out.println("Clase de cuenta es Ahorros");
+                        cAhorro = (CuentaAhorro) cuenta;
+                        idcuenta = cAhorro.getNumerocuenta();
+                        saldo = cAhorro.getSaldo();
+                        idcliente = cAhorro.getCliente().getId();
+                        tipocuenta = "A";
+                        interes = cAhorro.getInteres();
+                        saldomin = cAhorro.getSaldomin();
+                        if (cAhorro.getNumerocuenta() == Integer.parseInt(eElement.getAttribute("id"))) {
+                            Element actCuenta = doc.createElement("Cuenta");
+                            actCuenta.setAttribute("id", String.valueOf(idcuenta));
+                            Element actSaldo = doc.createElement("saldo");
+                            actSaldo.setTextContent(String.valueOf(saldo));
+                            Element actCliente = doc.createElement("cliente");
+                            actCliente.setTextContent(String.valueOf(idcliente));
+                            Element actTipoCuenta = doc.createElement("tipocuenta");
+                            actTipoCuenta.setTextContent(tipocuenta);
+                            Element actInteres = doc.createElement("interes");
+                            actInteres.setTextContent(String.valueOf(interes));
+                            Element actSaldoMin = doc.createElement("saldomin");
+                            actSaldoMin.setTextContent(String.valueOf(saldomin));
+                            actCuenta.appendChild(actSaldo);
+                            actCuenta.appendChild(actCliente);
+                            actCuenta.appendChild(actTipoCuenta);
+                            actCuenta.appendChild(actInteres);
+                            actCuenta.appendChild(actSaldoMin);
+                            nRaiz.replaceChild(actCuenta, eElement);                  
+                        }
                     } else {
+                        System.out.println("Clase de cuenta es Corriente");
+                        cCorriente = (CuentaCorriente) cuenta;
+                        idcuenta = cCorriente.getNumerocuenta();
+                        saldo = cCorriente.getSaldo();
+                        idcliente = cCorriente.getCliente().getId();
+                        tipocuenta = "C";
+                        interes = cCorriente.getInteres();
+                        saldomin = cCorriente.getSaldo();
+
+                        if (cAhorro.getNumerocuenta() == Integer.parseInt(eElement.getAttribute("id"))) {
+                            Element actCuenta = doc.createElement("Cuenta");
+                            actCuenta.setAttribute("id", String.valueOf(idcuenta));
+                            Element actSaldo = doc.createElement("saldo");
+                            actSaldo.setTextContent(String.valueOf(saldo));
+                            Element actCliente = doc.createElement("cliente");
+                            actCliente.setTextContent(String.valueOf(idcliente));
+                            Element actTipoCuenta = doc.createElement("tipocuenta");
+                            actTipoCuenta.setTextContent(tipocuenta);
+                            Element actInteres = doc.createElement("interes");
+                            actInteres.setTextContent(String.valueOf(interes));
+                            Element actSaldoMin = doc.createElement("saldomin");
+                            actSaldoMin.setTextContent(String.valueOf(saldomin));
+                            actCuenta.appendChild(actSaldo);
+                            actCuenta.appendChild(actCliente);
+                            actCuenta.appendChild(actTipoCuenta);
+                            actCuenta.appendChild(actInteres);
+                            actCuenta.appendChild(actSaldoMin); 
+                            nRaiz.replaceChild(actCuenta, eElement);
+                        }
+                        //Nodo raiz
                     }
+
                 }
             }
             TransformerFactory transFactory = TransformerFactory.newInstance();
