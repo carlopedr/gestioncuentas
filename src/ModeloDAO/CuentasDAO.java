@@ -261,7 +261,8 @@ public class CuentasDAO {
                         cuenta = new CuentaAhorro(interes, saldomin, idcuenta, cliente);
                     } else {
                         cuenta = new CuentaCorriente(idcuenta, cliente);
-                    }                  
+                    }
+                    list.add(cuenta);
                 }
             }
         } catch (IOException | ParserConfigurationException | SAXException e) {
