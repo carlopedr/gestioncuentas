@@ -224,7 +224,7 @@ public class CuentasDAO {
             System.out.println(e.getMessage());
         }
     }
-    public List listarCuenta(){
+   public List listarCuenta() {
         Object cuenta = null;
         ArrayList<Object> list = new ArrayList();
         File file = new File("datos/Cuentas.xml");
@@ -235,28 +235,6 @@ public class CuentasDAO {
         double interes;
         double saldomin;
         //Se crean dos objetos de cada tipo de cuenta.
-        CuentaAhorro cAhorro = new CuentaAhorro();
-        CuentaCorriente cCorriente = new CuentaCorriente();
-        //Se verifica que objeto se esta recibiendo en el método
-        if (cuenta.getClass() == cAhorro.getClass()) {
-            System.out.println("Clase de cuenta es Ahorros");
-            cAhorro = (CuentaAhorro) cuenta;
-            idcuenta = cAhorro.getNumerocuenta();
-            saldo = cAhorro.getSaldo();
-            idcliente = cAhorro.getCliente().getId();
-            tipocuenta = "A";
-            interes = cAhorro.getInteres();
-            saldomin = cAhorro.getSaldomin();
-        } else {
-            System.out.println("Clase de cuenta es Corriente");
-            cCorriente = (CuentaCorriente) cuenta;
-            idcuenta = cCorriente.getNumerocuenta();
-            saldo = cCorriente.getSaldo();
-            idcliente = cCorriente.getCliente().getId();
-            tipocuenta="C";
-            interes = cCorriente.getInteres();
-            saldomin = cCorriente.getSaldo();
-        }
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
