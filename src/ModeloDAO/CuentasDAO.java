@@ -224,7 +224,7 @@ public class CuentasDAO {
             System.out.println(e.getMessage());
         }
     }
-   public List listarCuenta() {
+   publicpublic List listarCuenta() {
         Object cuenta = null;
         ArrayList<Object> list = new ArrayList();
         File file = new File("datos/Cuentas.xml");
@@ -245,20 +245,32 @@ public class CuentasDAO {
                 Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
+
                     idcuenta = Integer.parseInt(eElement.getAttribute("id"));
                     saldo = Double.parseDouble(eElement.getElementsByTagName("saldo").item(0).getTextContent());
                     idcliente = Integer.parseInt(eElement.getElementsByTagName("cliente").item(0).getTextContent());
                     tipocuenta = eElement.getElementsByTagName("tipocuenta").item(0).getTextContent();
                     interes = Double.parseDouble(eElement.getElementsByTagName("interes").item(0).getTextContent());;
                     saldomin = Double.parseDouble(eElement.getElementsByTagName("saldomin").item(0).getTextContent());;
-                    list.add(cuenta);
-                }                
+                    //Obtener el Cliente
+                    PersonaDAO clienteDAO = new PersonaDAO();
+                    Persona cliente = new Persona();
+                    cliente = clienteDAO.buscarPersona(idcliente);
+                    //Determinar el tipo de cuenta y crear el objeto correspondiente
+                    if ("A".equals(tipocuenta)) {
+                        cuenta = new CuentaAhorro(interes, saldomin, idcuenta, cliente);
+                    } else {
+                        cuenta = new CuentaCorriente(idcuenta, cliente);
+                    }                  
+                }
             }
         } catch (IOException | ParserConfigurationException | SAXException e) {
             System.out.println(e.toString());
+
         }
         return list;
     }
+    
     @SuppressWarnings("empty-statement")
     public Object buscarCuenta(int id){
         //Una variable para cada atributo del archivo XML
