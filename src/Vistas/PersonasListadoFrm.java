@@ -91,6 +91,7 @@ public class PersonasListadoFrm extends javax.swing.JFrame {
             }
         });
         clientesTbl.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        clientesTbl.setColumnSelectionAllowed(true);
         clientesTbl.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane1.setViewportView(clientesTbl);
         clientesTbl.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
@@ -120,6 +121,11 @@ public class PersonasListadoFrm extends javax.swing.JFrame {
         });
 
         jButton2.setText("Eliminar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -179,8 +185,7 @@ public class PersonasListadoFrm extends javax.swing.JFrame {
             modelo.addRow(filaNueva);
             
         }
-        
-        
+               
     }//GEN-LAST:event_generaClBtnActionPerformed
 
     private void salirBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirBtnActionPerformed
@@ -200,11 +205,13 @@ public class PersonasListadoFrm extends javax.swing.JFrame {
         edicion=true;
         PersonaFrame personaEdFrm= new PersonaFrame();
         personaEdFrm.setVisible(true);
-        this.setVisible(false);
-        
-        
+        this.setVisible(false);       
         //System.out.println(perEditar.toString());
     }//GEN-LAST:event_EditClienteBtnActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
