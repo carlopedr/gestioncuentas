@@ -5,15 +5,18 @@
  */
 package Vistas;
 
+import Modelo.Cuenta;
+import Modelo.CuentaAhorro;
+import Modelo.CuentaCorriente;
+import ModeloDAO.CuentasDAO;
 import Modelo.Persona;
 import ModeloDAO.PersonaDAO;
+import static Vistas.CuentasListadoFrm.cuenEditar;
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import javax.swing.ComboBoxModel;
-import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -24,8 +27,8 @@ public class CuentasFrame extends javax.swing.JFrame {
     /**
      * Creates new form CuentasFrame
      */
-    private int idCliente;
     private final List<Persona> list;
+    public static boolean cuentaEdicion = false;
     
     public CuentasFrame() {
         initComponents();
@@ -38,13 +41,62 @@ public class CuentasFrame extends javax.swing.JFrame {
         Collections.sort(list);
         Iterator<Persona> iter = list.iterator();
         Persona per = null;
+        
+        CuentasListadoFrm cuentaLista = new CuentasListadoFrm();
+        cuentaEdicion = cuentaLista.edicion;
         //JComboBox personasCB = new JComboBox((ComboBoxModel) list);
+        
+        if (cuentaLista.edicion == false) {
         while (iter.hasNext()) {
+            
             per = iter.next();
+            
            // itemPersonaCmb=per.getNombre();
             this.clientesCmbBox.addItem(per);
+        } 
         }
         
+        this.setLocationRelativeTo(null);
+        
+        cuentaEdicion = cuentaLista.edicion;
+        if (cuentaLista.edicion) {
+            CuentaAhorro cAhorro = new CuentaAhorro();
+            CuentaCorriente cCorriente = new CuentaCorriente();
+        //Se verifica que objeto se esta recibiendo en el método
+            if (cuentaLista.cuenEditar instanceof CuentaAhorro) {
+                CuentaAhorro avl = (CuentaAhorro) cuenEditar;
+                this.titulo.setText("Actualizar Cliente");
+                int numcuenta = avl.getNumerocuenta();
+                this.numcuentaTxtFld.setText(String.valueOf(numcuenta));
+                String tipoCuenta = "Ahorro";
+                TipoCuentaCBox.setSelectedItem(tipoCuenta);
+                double saldo = avl.getSaldo();
+                Persona p = avl.getCliente();
+                clientesCmbBox.addItem(p);
+                System.out.println("p"+p);
+                this.saldoTXTFld.setText(String.valueOf(saldo));
+                double interes = avl.getInteres();
+                interesTxtFld.setText(String.valueOf(interes));
+                double saldomin = avl.getSaldomin();
+                saldominTxtFld.setText(String.valueOf(saldomin));
+        } else {
+                CuentaCorriente avl = (CuentaCorriente) cuenEditar;
+                this.titulo.setText("Actualizar Cliente");
+                int numcuenta = avl.getNumerocuenta();
+                this.numcuentaTxtFld.setText(String.valueOf(numcuenta));
+                    String tipoCuenta = "Corriente";
+                TipoCuentaCBox.setSelectedItem(tipoCuenta);
+                double saldo = avl.getSaldo();
+                this.saldoTXTFld.setText(String.valueOf(saldo));
+                Persona p = avl.getCliente();
+                clientesCmbBox.addItem(p);
+                double interes = avl.getInteres();
+                interesTxtFld.setText(String.valueOf(interes));
+                String saldomin = "No aplica";
+                saldominTxtFld.setText(String.valueOf(saldomin));
+            }   
+            this.CrearBtn.setText("Actualizar");
+        } 
         
     }
 
@@ -57,7 +109,7 @@ public class CuentasFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        titulo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -67,10 +119,10 @@ public class CuentasFrame extends javax.swing.JFrame {
         numcuentaTxtFld = new javax.swing.JTextField();
         saldoTXTFld = new javax.swing.JTextField();
         clientesCmbBox = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        TipoCuentaCBox = new javax.swing.JComboBox<>();
         interesTxtFld = new javax.swing.JTextField();
         saldominTxtFld = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        CrearBtn = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -86,8 +138,8 @@ public class CuentasFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Gestión de Cuentas");
+        titulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        titulo.setText("Gestión de Cuentas");
 
         jLabel2.setText("Número de cuenta");
 
@@ -101,6 +153,28 @@ public class CuentasFrame extends javax.swing.JFrame {
 
         jLabel7.setText("Saldo mínimo");
 
+        numcuentaTxtFld.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numcuentaTxtFldActionPerformed(evt);
+            }
+        });
+        numcuentaTxtFld.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                numcuentaTxtFldKeyTyped(evt);
+            }
+        });
+
+        saldoTXTFld.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saldoTXTFldActionPerformed(evt);
+            }
+        });
+        saldoTXTFld.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                saldoTXTFldKeyTyped(evt);
+            }
+        });
+
         clientesCmbBox.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 clientesCmbBoxItemStateChanged(evt);
@@ -112,12 +186,28 @@ public class CuentasFrame extends javax.swing.JFrame {
             }
         });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ahorros", "Corriente" }));
-
-        jButton1.setText("Crear");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        TipoCuentaCBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ahorros", "Corriente" }));
+        TipoCuentaCBox.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                TipoCuentaCBoxItemStateChanged(evt);
+            }
+        });
+        TipoCuentaCBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                TipoCuentaCBoxActionPerformed(evt);
+            }
+        });
+
+        interesTxtFld.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                interesTxtFldActionPerformed(evt);
+            }
+        });
+
+        CrearBtn.setText("Crear");
+        CrearBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CrearBtnActionPerformed(evt);
             }
         });
 
@@ -206,8 +296,7 @@ public class CuentasFrame extends javax.swing.JFrame {
                         .addGap(25, 25, 25)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel4)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel4))
                         .addGap(41, 41, 41)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -224,33 +313,40 @@ public class CuentasFrame extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(186, 186, 186)
-                                .addComponent(jButton2)
-                                .addGap(87, 87, 87)
-                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel7))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel7)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel6)))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(saldominTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(interesTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(TipoCuentaCBox, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(87, 87, 87)
+                                .addComponent(CrearBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton2)
+                                .addGap(79, 79, 79)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(98, 98, 98)))
                         .addGap(27, 27, 27))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(183, 183, 183)
-                .addComponent(jLabel1)
+                .addComponent(titulo)
                 .addGap(33, 33, 33))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(jLabel1)
+                .addComponent(titulo)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -276,19 +372,19 @@ public class CuentasFrame extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel6)
-                                        .addGap(18, 18, 18)
+                                        .addGap(43, 43, 43)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                             .addComponent(saldominTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(jLabel7)))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(TipoCuentaCBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(interesTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(interesTxtFld, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel6))))
                                 .addGap(102, 102, 102)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton1)
+                            .addComponent(CrearBtn)
                             .addComponent(jButton2)
                             .addComponent(jButton3))))
                 .addContainerGap(25, Short.MAX_VALUE))
@@ -300,9 +396,61 @@ public class CuentasFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void CrearBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        int idcuenta;
+        double saldo;
+        String tipocuenta;
+        double interes;
+        double saldomin;        
+        try {
+            idcuenta = Integer.parseInt(numcuentaTxtFld.getText());
+            //Validar que sea un numero. Manejar el error
+            //Mensajes por medio de ventanas emergentes 
+            //y cambiar el foco de la forma
+            saldo = Double.parseDouble(saldoTXTFld.getText());
+            tipocuenta = (String) TipoCuentaCBox.getSelectedItem();
+            Persona per = (Persona) clientesCmbBox.getSelectedItem();
+            interes = Double.parseDouble(interesTxtFld.getText());
+            saldomin = Double.parseDouble(saldominTxtFld.getText());
+
+            if ("Ahorros".equals(tipocuenta)) {
+                CuentaAhorro cuen = new CuentaAhorro(interes, saldomin, idcuenta, per);
+                CuentasDAO cuenDAO = new CuentasDAO();
+                cuen.setSaldo(saldo);
+                if (!cuentaEdicion) {
+                    cuenDAO.crearCuenta(cuen);
+                    JOptionPane.showMessageDialog(null, "Registro guardado");
+                } else {
+                    cuenDAO.actualizarCuenta(cuen);
+                    JOptionPane.showMessageDialog(null, "Registro actualizado");
+                }
+                saldoTXTFld.setText("");
+                numcuentaTxtFld.setText("");
+                    
+                }
+            else{
+                CuentaCorriente cuen = new CuentaCorriente(idcuenta,per);
+                CuentasDAO cuenDAO = new CuentasDAO();
+                cuen.setSaldo(saldo);
+                if (!cuentaEdicion) {
+                    cuenDAO.crearCuenta(cuen);
+                    JOptionPane.showMessageDialog(null, "Registro guardado");
+                } else {
+                    cuenDAO.actualizarCuenta(cuen);
+                    JOptionPane.showMessageDialog(null, "Registro actualizado");
+                }
+                saldoTXTFld.setText("");
+                numcuentaTxtFld.setText("");
+            }
+                
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error en los datos ingresados");
+            numcuentaTxtFld.setText("");
+            numcuentaTxtFld.requestFocus();
+        }            
+        
+    }//GEN-LAST:event_CrearBtnActionPerformed
 
     private void emailClienteTxtFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailClienteTxtFActionPerformed
         // TODO add your handling code here:
@@ -325,6 +473,53 @@ public class CuentasFrame extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_clientesCmbBoxItemStateChanged
+
+    private void numcuentaTxtFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numcuentaTxtFldActionPerformed
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_numcuentaTxtFldActionPerformed
+
+    private void interesTxtFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_interesTxtFldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_interesTxtFldActionPerformed
+
+    private void saldoTXTFldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saldoTXTFldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_saldoTXTFldActionPerformed
+
+    private void TipoCuentaCBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TipoCuentaCBoxActionPerformed
+        // TODO add your handling code here:        
+    }//GEN-LAST:event_TipoCuentaCBoxActionPerformed
+
+    private void TipoCuentaCBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_TipoCuentaCBoxItemStateChanged
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_TipoCuentaCBoxItemStateChanged
+
+    private void numcuentaTxtFldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_numcuentaTxtFldKeyTyped
+        // TODO add your handling code here:
+         char validar = evt.getKeyChar();
+
+        if (Character.isLetter(validar)) {
+            getToolkit().beep();
+            evt.consume();
+
+            JOptionPane.showMessageDialog(rootPane, "Los datos deben ser numéricos");
+        }
+    }//GEN-LAST:event_numcuentaTxtFldKeyTyped
+
+    private void saldoTXTFldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_saldoTXTFldKeyTyped
+        // TODO add your handling code here:
+         char validar = evt.getKeyChar();
+
+        if (Character.isLetter(validar)) {
+            getToolkit().beep();
+            evt.consume();
+
+            JOptionPane.showMessageDialog(rootPane, "Los datos deben ser numéricos");
+        }
+    }//GEN-LAST:event_saldoTXTFldKeyTyped
+
 
     /**
      * @param args the command line arguments
@@ -362,15 +557,14 @@ public class CuentasFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton CrearBtn;
+    private javax.swing.JComboBox<String> TipoCuentaCBox;
     private javax.swing.JComboBox clientesCmbBox;
     private javax.swing.JTextField emailClienteTxtF;
     private javax.swing.JTextField idClienteTxtF;
     private javax.swing.JTextField interesTxtFld;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -388,5 +582,6 @@ public class CuentasFrame extends javax.swing.JFrame {
     private javax.swing.JTextField saldoTXTFld;
     private javax.swing.JTextField saldominTxtFld;
     private javax.swing.JTextField tipoIdCTxtF;
+    private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }
