@@ -5,7 +5,6 @@
  */
 package ModeloDAO;
 
-
 import Modelo.CuentaAhorro;
 import Modelo.CuentaCorriente;
 import Modelo.Persona;
@@ -31,13 +30,16 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 /**
  *
  * @author Usuario
  */
 public class CuentasDAO {
-    public void crearCenta(Object cuenta){
+
+    public void crearCuenta(Object cuenta){
         //Una variable para cada atributo del archivo de salida
         int idcuenta;
         double saldo;
@@ -113,8 +115,9 @@ public class CuentasDAO {
         }
 
     }
-   
-    public void borrarCuenta(int id){
+
+    public void borrarCuenta(int id) throws TransformerException {
+        //Una variable para cada atributo del archivo XML
         File file = new File("datos/Cuentas.xml");
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -141,7 +144,8 @@ public class CuentasDAO {
             System.out.println(e.toString());
         }
     }
-   public void actualizarCuenta(Object cuenta) {
+
+    public void actualizarCuenta(Object cuenta) {
         //Una variable para cada atributo del archivo de salida
         int idcuenta;
         double saldo;
@@ -149,7 +153,6 @@ public class CuentasDAO {
         String tipocuenta;
         double interes;
         double saldomin;
-
         File file = new File("datos/Cuentas.xml");//para acceder a la ubicacion del archivo en este caso carpeta datos/Cuentas
         try {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -157,16 +160,43 @@ public class CuentasDAO {
             Document doc = dBuilder.parse(file);
             Node nRaiz = doc.getDocumentElement();
             doc.getDocumentElement().normalize();
-            NodeList nList = doc.getElementsByTagName("Cuentas");
+            NodeList nList = doc.getElementsByTagName("Cuenta");
             for (int temp = 0; temp < nList.getLength(); temp++) {
                 Node nNode = nList.item(temp);
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
-                    //Se crean dos objetos de cada tipo de cuenta.
-                    CuentaAhorro cAhorro = new CuentaAhorro();
-                    CuentaCorriente cCorriente = new CuentaCorriente();
-                    //Se verifica que objeto se esta recibiendo en el método
-                    if (cuenta.getClass() == cAhorro.getClass()) {
+                    if (cuenta instanceof CuentaCorriente) {
+                        CuentaCorriente cCorriente = (CuentaCorriente) cuenta;
+                        cCorriente = (CuentaCorriente) cuenta;
+                        idcuenta = cCorriente.getNumerocuenta();
+                        saldo = cCorriente.getSaldo();
+                        idcliente = cCorriente.getCliente().getId();
+                        tipocuenta = "C";
+                        interes = cCorriente.getInteres();
+                        saldomin = cCorriente.getSaldo();
+                        if (cCorriente.getNumerocuenta() == Integer.parseInt(eElement.getAttribute("id"))) {
+                            Element actCuenta = doc.createElement("Cuenta");
+                            actCuenta.setAttribute("id", String.valueOf(idcuenta));
+                            Element actSaldo = doc.createElement("saldo");
+                            actSaldo.setTextContent(String.valueOf(saldo));
+                            Element actCliente = doc.createElement("cliente");
+                            actCliente.setTextContent(String.valueOf(idcliente));
+                            Element actTipoCuenta = doc.createElement("tipocuenta");
+                            actTipoCuenta.setTextContent(tipocuenta);
+                            Element actInteres = doc.createElement("interes");
+                            actInteres.setTextContent(String.valueOf(interes));
+                            Element actSaldoMin = doc.createElement("saldomin");
+                            actSaldoMin.setTextContent(String.valueOf(saldomin));
+                            actCuenta.appendChild(actSaldo);
+                            actCuenta.appendChild(actCliente);
+                            actCuenta.appendChild(actTipoCuenta);
+                            actCuenta.appendChild(actInteres);
+                            actCuenta.appendChild(actSaldoMin);
+                            nRaiz.replaceChild(actCuenta, eElement);
+                        }
+
+                    } else {
+                        CuentaAhorro cAhorro = (CuentaAhorro) cuenta;
                         System.out.println("Clase de cuenta es Ahorros");
                         cAhorro = (CuentaAhorro) cuenta;
                         idcuenta = cAhorro.getNumerocuenta();
@@ -193,41 +223,9 @@ public class CuentasDAO {
                             actCuenta.appendChild(actTipoCuenta);
                             actCuenta.appendChild(actInteres);
                             actCuenta.appendChild(actSaldoMin);
-                            nRaiz.replaceChild(actCuenta, eElement);                  
-                        }
-                    } else {
-                        System.out.println("Clase de cuenta es Corriente");
-                        cCorriente = (CuentaCorriente) cuenta;
-                        idcuenta = cCorriente.getNumerocuenta();
-                        saldo = cCorriente.getSaldo();
-                        idcliente = cCorriente.getCliente().getId();
-                        tipocuenta = "C";
-                        interes = cCorriente.getInteres();
-                        saldomin = cCorriente.getSaldo();
-
-                        if (cAhorro.getNumerocuenta() == Integer.parseInt(eElement.getAttribute("id"))) {
-                            Element actCuenta = doc.createElement("Cuenta");
-                            actCuenta.setAttribute("id", String.valueOf(idcuenta));
-                            Element actSaldo = doc.createElement("saldo");
-                            actSaldo.setTextContent(String.valueOf(saldo));
-                            Element actCliente = doc.createElement("cliente");
-                            actCliente.setTextContent(String.valueOf(idcliente));
-                            Element actTipoCuenta = doc.createElement("tipocuenta");
-                            actTipoCuenta.setTextContent(tipocuenta);
-                            Element actInteres = doc.createElement("interes");
-                            actInteres.setTextContent(String.valueOf(interes));
-                            Element actSaldoMin = doc.createElement("saldomin");
-                            actSaldoMin.setTextContent(String.valueOf(saldomin));
-                            actCuenta.appendChild(actSaldo);
-                            actCuenta.appendChild(actCliente);
-                            actCuenta.appendChild(actTipoCuenta);
-                            actCuenta.appendChild(actInteres);
-                            actCuenta.appendChild(actSaldoMin); 
                             nRaiz.replaceChild(actCuenta, eElement);
                         }
-                        //Nodo raiz
                     }
-
                 }
             }
             TransformerFactory transFactory = TransformerFactory.newInstance();
@@ -247,56 +245,10 @@ public class CuentasDAO {
             System.out.println(e.getMessage());
         }
     }
-   publicpublic List listarCuenta() {
-        Object cuenta = null;
-        ArrayList<Object> list = new ArrayList();
-        File file = new File("datos/Cuentas.xml");
-        int idcuenta;
-        double saldo;
-        int idcliente;
-        String tipocuenta;
-        double interes;
-        double saldomin;
-        //Se crean dos objetos de cada tipo de cuenta.
-        try {
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(file);
-            doc.getDocumentElement().normalize();
-            NodeList nList = doc.getElementsByTagName("Cuenta");
-            for (int temp = 0; temp < nList.getLength(); temp++) {
-                Node nNode = nList.item(temp);
-                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element eElement = (Element) nNode;
 
-                    idcuenta = Integer.parseInt(eElement.getAttribute("id"));
-                    saldo = Double.parseDouble(eElement.getElementsByTagName("saldo").item(0).getTextContent());
-                    idcliente = Integer.parseInt(eElement.getElementsByTagName("cliente").item(0).getTextContent());
-                    tipocuenta = eElement.getElementsByTagName("tipocuenta").item(0).getTextContent();
-                    interes = Double.parseDouble(eElement.getElementsByTagName("interes").item(0).getTextContent());;
-                    saldomin = Double.parseDouble(eElement.getElementsByTagName("saldomin").item(0).getTextContent());;
-                    //Obtener el Cliente
-                    PersonaDAO clienteDAO = new PersonaDAO();
-                    Persona cliente = new Persona();
-                    cliente = clienteDAO.buscarPersona(idcliente);
-                    //Determinar el tipo de cuenta y crear el objeto correspondiente
-                    if ("A".equals(tipocuenta)) {
-                        cuenta = new CuentaAhorro(interes, saldomin, idcuenta, cliente);
-                    } else {
-                        cuenta = new CuentaCorriente(idcuenta, cliente);
-                    }
-                    list.add(cuenta);
-                }
-            }
-        } catch (IOException | ParserConfigurationException | SAXException e) {
-            System.out.println(e.toString());
 
-        }
-        return list;
-    }
-    
     @SuppressWarnings("empty-statement")
-    public Object buscarCuenta(int id){
+    public Object buscarCuenta(int id) {
         //Una variable para cada atributo del archivo XML
         Object cuenta = null;
         int idcuenta;
@@ -333,8 +285,8 @@ public class CuentasDAO {
                             cuenta = new CuentaAhorro(interes,saldomin,idcuenta,cliente);
                         }
                         else{
-                            cuenta = new CuentaCorriente(idcuenta,cliente);
-                        } 
+                            cuenta = new CuentaCorriente(idcuenta, cliente);
+                        }
                         break;
                     } else {
                         cuenta = null;
@@ -343,10 +295,59 @@ public class CuentasDAO {
             }
         } catch (IOException | ParserConfigurationException | SAXException e) {
             System.out.println(e.toString());
-            
+
         }
         return cuenta;
-                
-        
+
+    }
+    public List listarCuenta() {
+        //Object cuenta = null;
+        ArrayList<Object> list = new ArrayList();
+        File file = new File("datos/Cuentas.xml");
+        int idcuenta;
+        double saldo;
+        int idcliente;
+        String tipocuenta;
+        double interes;
+        double saldomin;
+        //Se crean dos objetos de cada tipo de cuenta.
+        try {
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(file);
+            doc.getDocumentElement().normalize();
+            NodeList nList = doc.getElementsByTagName("Cuenta");
+            for (int temp = 0; temp < nList.getLength(); temp++) {
+                Node nNode = nList.item(temp);
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eElement = (Element) nNode;
+                    idcuenta = Integer.parseInt(eElement.getAttribute("id"));
+                    saldo = Double.parseDouble(eElement.getElementsByTagName("saldo").item(0).getTextContent());
+                    idcliente = Integer.parseInt(eElement.getElementsByTagName("cliente").item(0).getTextContent());
+                    tipocuenta = eElement.getElementsByTagName("tipocuenta").item(0).getTextContent();
+                    interes = Double.parseDouble(eElement.getElementsByTagName("interes").item(0).getTextContent());;
+                    saldomin = Double.parseDouble(eElement.getElementsByTagName("saldomin").item(0).getTextContent());;
+                    //Obtener el Cliente
+                    PersonaDAO clienteDAO = new PersonaDAO();
+                    Persona cliente = new Persona();
+                    cliente = clienteDAO.buscarPersona(idcliente);
+                    //Determinar el tipo de cuenta y crear el objeto correspondiente
+                    if ("A".equals(tipocuenta)) {
+                        CuentaAhorro cuenta = new CuentaAhorro(interes, saldomin, idcuenta, cliente);
+                        cuenta.setSaldo(saldo);
+                        list.add(cuenta);
+                    } else {
+                        CuentaCorriente cuenta = new CuentaCorriente(idcuenta, cliente);
+                        cuenta.setSaldo(saldo);
+                        list.add(cuenta);
+                    }  
+                    
+                }
+            }
+        } catch (IOException | ParserConfigurationException | SAXException e) {
+            System.out.println(e.toString());
+
+        }
+        return list;
     }
 }
